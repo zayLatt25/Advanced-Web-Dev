@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ part.name }} - Details</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1a1a1a;
+        color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      header {
+        background: linear-gradient(135deg, #00ff6a, #004d26);
+        text-align: center;
+        padding: 2rem;
+        position: relative;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        margin: 0px;
+        color: #111;
+      }
+
+      header p {
+        font-size: 1.25rem;
+        margin: 0px;
+        color: #111;
+      }
+
+      header button {
+        padding: 0.5rem 1rem;
+        background-color: #00ff6a;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      header button:hover {
+        background-color: #008c42;
+      }
+
+      main {
+        flex: 1;
+        padding: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      main p {
+        font-size: 1.5rem;
+        color: #ccc;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+        background-color: #282828;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      table tr {
+        border-bottom: 1px solid #444;
+      }
+
+      table tr:last-child {
+        border-bottom: none;
+      }
+
+      table td {
+        padding: 1rem;
+        text-align: left;
+        font-size: 1rem;
+        vertical-align: top;
+      }
+
+      table td:first-child {
+        font-weight: bold;
+        color: #00ff6a;
+      }
+
+      table td:last-child {
+        text-align: right;
+        color: #ddd;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #1f1f1f;
+      }
+
+      @media (max-width: 600px) {
+        header h1 {
+          font-size: 2rem;
+        }
+
+        main p {
+          font-size: 1.2rem;
+        }
+
+        table td {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <button onclick="window.history.back()">&larr; Back</button>
+      <h1>{{ part.name }}</h1>
+      <p>( {{ part_category }} )</p>
+    </header>
+
+    <main>
+      <p>Price: ${{ part.price }}</p>
+
+      <table>
+        {% if part_category == 'Case' %}
+        <tr>
+          <td>Type:</td>
+          <td>{{ part.type }}</td>
+        </tr>
+        <tr>
+          <td>Color:</td>
+          <td>{{ part.color }}</td>
+        </tr>
+        <tr>
+          <td>PSU:</td>
+          <td>{{ part.psu }}</td>
+        </tr>
+        <tr>
+          <td>Side Panel:</td>
+          <td>{{ part.side_panel }}</td>
+        </tr>
+        <tr>
+          <td>External 5.25" Bays:</td>
+          <td>{{ part.external_525_bays }}</td>
+        </tr>
+        <tr>
+          <td>Internal 3.5" Bays:</td>
+          <td>{{ part.internal_35_bays }}</td>
+        </tr>
+
+        {% elif part_category == 'CPU Cooler' %}
+        <tr>
+          <td>RPM Range:</td>
+          <td>{{ part.rpm_min }} - {{ part.rpm_max }}</td>
+        </tr>
+        <tr>
+          <td>Noise Level:</td>
+          <td>{{ part.noise_level_min }} - {{ part.noise_level_max }} dB</td>
+        </tr>
+        <tr>
+          <td>Color:</td>
+          <td>{{ part.color }}</td>
+        </tr>
+        <tr>
+          <td>Size:</td>
+          <td>{{ part.size }} mm</td>
+        </tr>
+
+        {% elif part_category == 'CPU' %}
+        <tr>
+          <td>Core Count:</td>
+          <td>{{ part.core_count }}</td>
+        </tr>
+        <tr>
+          <td>Core Clock:</td>
+          <td>{{ part.core_clock }} GHz</td>
+        </tr>
+        <tr>
+          <td>Boost Clock:</td>
+          <td>{{ part.boost_clock }} GHz</td>
+        </tr>
+        <tr>
+          <td>TDP:</td>
+          <td>{{ part.tdp }} W</td>
+        </tr>
+        <tr>
+          <td>Graphics:</td>
+          <td>{{ part.graphics }}</td>
+        </tr>
+        <tr>
+          <td>SMT:</td>
+          <td>{{ part.smt|yesno:"Yes,No" }}</td>
+        </tr>
+
+        {% elif part_category == 'Internal Hard Drive' %}
+        <tr>
+          <td>Capacity:</td>
+          <td>{{ part.capacity }} GB</td>
+        </tr>
+        <tr>
+          <td>Price per GB:</td>
+          <td>${{ part.price_per_gb }}</td>
+        </tr>
+        <tr>
+          <td>Type:</td>
+          <td>{{ part.type }}</td>
+        </tr>
+        <tr>
+          <td>Cache:</td>
+          <td>{{ part.cache }} MB</td>
+        </tr>
+        <tr>
+          <td>Form Factor:</td>
+          <td>{{ part.form_factor }}</td>
+        </tr>
+        <tr>
+          <td>Interface:</td>
+          <td>{{ part.interface }}</td>
+        </tr>
+
+        {% elif part_category == 'Memory' %}
+        <tr>
+          <td>Speed Range:</td>
+          <td>{{ part.speed_min }} - {{ part.speed_max }} MHz</td>
+        </tr>
+        <tr>
+          <td>Modules:</td>
+          <td>{{ part.module_count }} x {{ part.module_size }} GB</td>
+        </tr>
+        <tr>
+          <td>Price per GB:</td>
+          <td>${{ part.price_per_gb }}</td>
+        </tr>
+        <tr>
+          <td>Color:</td>
+          <td>{{ part.color }}</td>
+        </tr>
+        <tr>
+          <td>CAS Latency:</td>
+          <td>{{ part.cas_latency }}</td>
+        </tr>
+        <tr>
+          <td>First Word Latency:</td>
+          <td>{{ part.first_word_latency }} ns</td>
+        </tr>
+
+        {% elif part_category == 'Motherboard' %}
+        <tr>
+          <td>Socket:</td>
+          <td>{{ part.socket }}</td>
+        </tr>
+        <tr>
+          <td>Form Factor:</td>
+          <td>{{ part.form_factor }}</td>
+        </tr>
+        <tr>
+          <td>Max Memory:</td>
+          <td>{{ part.max_memory }} GB</td>
+        </tr>
+        <tr>
+          <td>Memory Slots:</td>
+          <td>{{ part.memory_slots }}</td>
+        </tr>
+        <tr>
+          <td>Color:</td>
+          <td>{{ part.color }}</td>
+        </tr>
+
+        {% elif part_category == 'Power Supply' %}
+        <tr>
+          <td>Type:</td>
+          <td>{{ part.type }}</td>
+        </tr>
+        <tr>
+          <td>Efficiency:</td>
+          <td>{{ part.efficiency }}</td>
+        </tr>
+        <tr>
+          <td>Wattage:</td>
+          <td>{{ part.wattage }} W</td>
+        </tr>
+        <tr>
+          <td>Modular:</td>
+          <td>{{ part.modular }}</td>
+        </tr>
+        <tr>
+          <td>Color:</td>
+          <td>{{ part.color }}</td>
+        </tr>
+
+        {% elif part_category == 'GPU' %}
+        <tr>
+          <td>Name:</td>
+          <td>{{ part.name }}</td>
+        </tr>
+        <tr>
+          <td>Price:</td>
+          <td>${{ part.price }}</td>
+        </tr>
+        <tr>
+          <td>Chipset:</td>
+          <td>{{ part.chipset }}</td>
+        </tr>
+        <tr>
+          <td>Memory:</td>
+          <td>{{ part.memory }} GB</td>
+        </tr>
+        <tr>
+          <td>Core Clock:</td>
+          <td>{{ part.core_clock }} MHz</td>
+        </tr>
+        <tr>
+          <td>Boost Clock:</td>
+          <td>{{ part.boost_clock }} MHz</td>
+        </tr>
+        <tr>
+          <td>Color:</td>
+          <td>{{ part.color }}</td>
+        </tr>
+        <tr>
+          <td>Length:</td>
+          <td>{{ part.length }} mm</td>
+        </tr>
+        {% endif %}
+      </table>
+    </main>
+  </body>
+</html>

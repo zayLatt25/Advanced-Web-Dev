@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Nest</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #f4f4f4;
+    "
+  >
+    <!-- Nav -->
+    {% include 'nav.html' %}
+
+    <!-- Hero Section -->
+    <section
+      style="
+        background: linear-gradient(135deg, #00ff6a, #004d26);
+        text-align: center;
+        padding: 5rem 2rem;
+      "
+    >
+      <h1 style="font-size: 3rem; color: #111">Welcome to Tech Nest</h1>
+      <p style="font-size: 1.25rem; margin-top: 1rem; color: #111">
+        Your ultimate destination for PC building and tech solutions.
+      </p>
+      <a href="/gearGallery">
+        <button
+          style="
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            border: none;
+            background-color: #00ff6a;
+            color: #111;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+          onmouseover="this.style.backgroundColor='#004d26'; this.style.color='#00ff6a';"
+          onmouseout="this.style.backgroundColor='#00ff6a'; this.style.color='#111';"
+        >
+          Get Started
+        </button></a
+      >
+    </section>
+
+    <!-- Section 1 -->
+    <section style="padding: 3rem 2rem; text-align: center">
+      <h2 style="font-size: 2rem; color: #00ff6a; margin-bottom: 1rem">
+        Build Your Dream PC
+      </h2>
+      <p style="font-size: 1rem; max-width: 600px; margin: 0 auto">
+        Explore our step-by-step guides and create a rig tailored to your needs.
+        Whether you're a gamer, a creator, or a casual user, we have you
+        covered.
+      </p>
+    </section>
+
+    <!-- Section 2 -->
+    <section
+      style="padding: 3rem 2rem; text-align: center; background-color: #111"
+    >
+      <h2 style="font-size: 2rem; color: #00ff6a; margin-bottom: 1rem">
+        Discover the Best Components
+      </h2>
+      <p style="font-size: 1rem; max-width: 600px; margin: 0 auto">
+        Browse through our curated list of top-performing PC parts, with
+        insights into the latest technology and trends.
+      </p>
+    </section>
+  </body>
+</html>

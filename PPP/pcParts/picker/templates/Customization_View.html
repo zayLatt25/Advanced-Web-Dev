@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Customizations - Tech Nest</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    "
+  >
+    <!-- Page Title -->
+    <header
+      style="
+        background: linear-gradient(135deg, #00ff6a, #004d26);
+        text-align: center;
+        padding: 2rem;
+      "
+    >
+      <!-- Back Button -->
+      <div style="padding: 1rem">
+        <button
+          onclick="window.location.href='/gearGallery'"
+          style="
+            padding: 0.5rem 1rem;
+            background-color: #00ff6a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 1rem;
+          "
+          onmouseover="this.style.backgroundColor='#004d26'; this.style.color='#00ff6a';"
+          onmouseout="this.style.backgroundColor='#00ff6a'; this.style.color='#111';"
+        >
+          &larr; Back to Gear Gallery
+        </button>
+      </div>
+      <h1 style="font-size: 2.5rem; color: #111; margin-top: 0px">
+        Your Saved Customizations
+      </h1>
+      <p style="font-size: 1.25rem; color: #111">
+        View all your saved custom PC builds.
+      </p>
+    </header>
+
+    <!-- Content Sections -->
+    <main style="flex: 1; padding: 2rem">
+      <!-- Saved Customizations -->
+      <div
+        id="customizationsContainer"
+        style="display: flex; flex-wrap: wrap; gap: 2rem"
+      ></div>
+    </main>
+
+    <script>
+      async function fetchSavedCustomizations() {
+        try {
+          const response = await fetch("/api/save-customizations/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            renderCustomizations(data);
+          } else {
+            console.error("Failed to fetch customizations.");
+          }
+        } catch (error) {
+          console.error("Error fetching customizations:", error);
+        }
+      }
+
+      async function deleteCustomization(customizationId) {
+        try {
+          const response = await fetch(
+            `http://127.0.0.1:8000/api/delete-customization/${customizationId}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+              },
+            }
+          );
+
+          if (response.ok) {
+            alert("Customization deleted successfully!");
+            fetchSavedCustomizations();
+          } else {
+            console.error("Failed to delete customization.");
+            alert("Failed to delete customization. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error deleting customization:", error);
+        }
+      }
+
+      function renderCustomizations(customizations) {
+        const container = document.getElementById("customizationsContainer");
+
+        container.innerHTML = ""; // Clear the container
+
+        if (customizations.length === 0) {
+          container.innerHTML = `
+            <p style="color: #ccc; font-size: 1.25rem; text-align: center;">
+              No customizations found. Start building your custom PC!
+            </p>
+          `;
+          return;
+        }
+
+        customizations.forEach((customization, index) => {
+          const card = document.createElement("div");
+          card.style.cssText = `
+            position: relative;
+            width: calc(33.333% - 1rem);
+            min-width: 250px;
+            background-color: #111;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+            color: #f4f4f4;
+            font-size: 1rem;
+          `;
+
+          const parts = {
+            Case: {
+              name: customization.case?.name || "Not Chosen",
+              id: customization.case?.case_id || null,
+            },
+            "CPU Cooler": {
+              name: customization.cpu_cooler?.name || "Not Chosen",
+              id: customization.cpu_cooler?.cpu_cooler_id || null,
+            },
+            CPU: {
+              name: customization.cpu?.name || "Not Chosen",
+              id: customization.cpu?.cpu_id || null,
+            },
+            "Internal Hard Drive": {
+              name: customization.internal_hard_drive?.name || "Not Chosen",
+              id:
+                customization.internal_hard_drive?.internal_hard_drive_id ||
+                null,
+            },
+            Memory: {
+              name: customization.memory?.name || "Not Chosen",
+              id: customization.memory?.memory_id || null,
+            },
+            Motherboard: {
+              name: customization.motherboard?.name || "Not Chosen",
+              id: customization.motherboard?.motherboard_id || null,
+            },
+            "Power Supply": {
+              name: customization.power_supply?.name || "Not Chosen",
+              id: customization.power_supply?.power_supply_id || null,
+            },
+            GPU: {
+              name: customization.gpu?.name || "Not Chosen",
+              id: customization.gpu?.gpu_id || null,
+            },
+          };
+
+          const partsList = Object.entries(parts)
+            .map(([part, item]) => {
+              if (!item.id) {
+                return `
+                  <li style="margin-bottom: 0.5rem;">
+                    <strong style="color: #00ff6a;">${part}:</strong> ${item.name}
+                  </li>`;
+              } else {
+                return `
+                  <li style="margin-bottom: 0.5rem;">
+                    <strong style="color: #00ff6a;">${part}:</strong> 
+                    <a href="/part/${part}/${item.id}" style="color: #fff; text-decoration: underline; cursor: pointer;">
+                      ${item.name}
+                    </a>
+                  </li>`;
+              }
+            })
+            .join("");
+
+          card.innerHTML = `
+            <div style="position: absolute; top: 20px; right: 15px; cursor: pointer; color: white;"
+                 onclick="deleteCustomization('${customization.saved_id}')"
+                 title="Delete Build">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+              </svg>
+            </div>
+            <h3 style="color: #00ff6a; text-align: center; margin-top: 5px;">Build ${
+              index + 1
+            }</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              ${partsList}
+            </ul>
+          `;
+
+          container.appendChild(card);
+        });
+      }
+
+      fetchSavedCustomizations();
+    </script>
+  </body>
+</html>

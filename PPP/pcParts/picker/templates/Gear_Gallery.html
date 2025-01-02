@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gear Gallery</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #f4f4f4;
+    "
+  >
+    <!-- Nav -->
+    {% include 'nav.html' %}
+
+    <!-- Page Title -->
+    <section
+      style="
+        background: linear-gradient(135deg, #00ff6a, #004d26);
+        text-align: center;
+        padding: 3rem 2rem;
+      "
+    >
+      <h1 style="font-size: 2.5rem; color: #111">Browse Your Options</h1>
+      <p style="font-size: 1.25rem; margin-top: 1rem; color: #111">
+        Select components for your custom PC build from the options below.
+      </p>
+    </section>
+
+    <!-- Cards Section -->
+    <section style="padding: 3rem 2rem">
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 2rem;
+          justify-content: center;
+        "
+      >
+        <!-- Card 1 -->
+        <div
+          style="
+            background-color: #111;
+            border-radius: 8px;
+            width: 300px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+          "
+        >
+          <div
+            style="
+              height: 200px;
+              background-color: #333;
+              border-radius: 8px;
+              margin-bottom: 1rem;
+            "
+          >
+            <!-- Placeholder for image -->
+          </div>
+          <h3 style="font-size: 1.5rem; color: #00ff6a; margin-bottom: 0.5rem">
+            Your Customizations
+          </h3>
+          <p style="font-size: 1rem; color: #ccc; margin-bottom: 1rem">
+            View your saved configurations!
+          </p>
+          <a href="/saved-customizations">
+            <button
+              style="
+                padding: 0.5rem 1rem;
+                border: none;
+                background-color: #00ff6a;
+                color: #111;
+                font-weight: bold;
+                border-radius: 5px;
+                cursor: pointer;
+              "
+              onmouseover="this.style.backgroundColor='#004d26'; this.style.color='#00ff6a';"
+              onmouseout="this.style.backgroundColor='#00ff6a'; this.style.color='#111';"
+            >
+              Give a Look!
+            </button>
+          </a>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          style="
+            background-color: #111;
+            border-radius: 8px;
+            width: 300px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+          "
+        >
+          <div
+            style="
+              height: 200px;
+              background-color: #333;
+              border-radius: 8px;
+              margin-bottom: 1rem;
+            "
+          >
+            <!-- Placeholder for image -->
+          </div>
+          <h3 style="font-size: 1.5rem; color: #00ff6a; margin-bottom: 0.5rem">
+            Assemble Your Own!
+          </h3>
+          <p style="font-size: 1rem; color: #ccc; margin-bottom: 1rem">
+            Customize your PC from scratch by selecting individual parts.
+          </p>
+          <a href="/pcAssembly">
+            <button
+              style="
+                padding: 0.5rem 1rem;
+                border: none;
+                background-color: #00ff6a;
+                color: #111;
+                font-weight: bold;
+                border-radius: 5px;
+                cursor: pointer;
+              "
+              onmouseover="this.style.backgroundColor='#004d26'; this.style.color='#00ff6a';"
+              onmouseout="this.style.backgroundColor='#00ff6a'; this.style.color='#111';"
+            >
+              View Options
+            </button>
+          </a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
