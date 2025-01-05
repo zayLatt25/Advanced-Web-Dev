@@ -56,22 +56,13 @@ class AppTests(TestCase):
         self.assertEqual(len(messages), 1)  # One message should be added
         self.assertEqual(str(messages[0]), "Passwords do not match.")
 
-    # Test protected views
-    # def test_tech_nest_requires_authentication(self):
-    #     response = self.client.get(reverse('techNest'))
-    #     self.assertEqual(response.status_code, 302)  # Redirect to login page
-
-    #     self.client.login(username='testuser', password='password123')
-    #     response = self.client.get(reverse('techNest'))
-    #     self.assertEqual(response.status_code, 200)  # Access granted
-
     # Test Save Customizations API
     def test_save_customizations_success(self):
         data = {
             "Case": self.case.case_id,
             "CPU": self.cpu.cpu_id,
         }
-        response = self.api_client.post(reverse('saveCustomizationsApi'), data)
+        response = self.api_client.post(reverse('saveCustomizations'), data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn("Customizations saved successfully!", response.data["message"])
 
@@ -79,24 +70,24 @@ class AppTests(TestCase):
         data = {
             "Case": "invalid_id",
         }
-        response = self.api_client.post(reverse('saveCustomizationsApi'), data)
+        response = self.api_client.post(reverse('saveCustomizations'), data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     # Test Retrieve Customizations API
     def test_get_customizations(self):
-        response = self.api_client.get(reverse('saveCustomizationsApi'))
+        response = self.api_client.get(reverse('saveCustomizations'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreater(len(response.data), 0)
 
-    # # # Test Delete Customizations API
-    # def test_delete_customization_success(self):
-    #     response = self.api_client.delete(reverse('deleteCustomizationAPI', args=[self.saved_selection.saved_id]))
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.data["message"], "Customization deleted successfully!")
+    # Test Delete Customizations API
+    def test_delete_customization_success(self):
+        response = self.api_client.delete(reverse('delete-customization', args=[self.saved_selection.saved_id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["message"], "Customization deleted successfully!")
 
-    # def test_delete_customization_not_found(self):
-    #     response = self.api_client.delete(reverse('deleteCustomization', args=[999]))  # Non-existent ID
-    #     self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    def test_delete_customization_not_found(self):
+        response = self.api_client.delete(reverse('delete-customization', args=[999]))  # Non-existent ID
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     # Test part detail view
     def test_part_detail_view(self):

@@ -16,10 +16,9 @@ urlpatterns = [
     path('parts/', views.Parts, name="parts"),
     path('part/<str:part_category>/<int:part_id>', views.Part_Det, name='partDet'),
     path('saved-customizations/', TemplateView.as_view(template_name='Customization_View.html'), name='savedCustomizations'),
+    path('main/', views.Main, name='main'),
 
     # API Endpoints
-    path('api/parts/', api.PartsAPI.as_view(), name='partsAPI'),
-    path('api/part_detail/<str:part_category>/<int:part_id>/', api.PartDetailAPI.as_view(), name='partDetailAPI'),
     path('api/pc_assembly/', api.PCAssemblyAPI.as_view(), name='pcAssemblyAPI'),
     path('api/save-customizations/', SaveCustomizations.as_view(), name='saveCustomizations'),
     path('api/delete-customization/<int:saved_id>', DeleteCustomizations.as_view(), name='delete-customization'),

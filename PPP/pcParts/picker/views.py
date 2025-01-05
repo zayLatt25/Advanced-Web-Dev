@@ -91,12 +91,12 @@ def Parts(request):
         'CPU': Cpu.objects.all(),
         'Internal Hard Drive': InternalHardDrive.objects.all(),
         'Memory': Memory.objects.all(),
-        'Motherboards': Motherboard.objects.all(),
+        'Motherboard': Motherboard.objects.all(),
         'Power Supply': PowerSupply.objects.all(),
         'GPU': GPU.objects.all(),
     }
-
-    for items in parts.items():
+   
+    for part_category, items in parts.items():
         for item in items:
             if hasattr(item, 'case_id'):
                 item.id = item.case_id
@@ -114,6 +114,7 @@ def Parts(request):
                 item.id = item.power_supply_id
             elif hasattr(item, 'gpu_id'):
                 item.id = item.gpu_id
+
     return render(request, 'Parts.html', {'parts': parts})
 
 def Part_Det(request, part_category, part_id):
@@ -134,3 +135,6 @@ def Part_Det(request, part_category, part_id):
 
     part = get_object_or_404(model, pk=part_id)
     return render(request, 'Part_Det.html', {'part': part, 'part_category': part_category})
+
+def Main(request):
+    return render(request, 'Main.html')

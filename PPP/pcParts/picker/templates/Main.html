@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Endpoints and Development Information</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      h1,
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 15px;
+      }
+      a {
+        text-decoration: none;
+        color: #007bff;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .endpoint-description,
+      .details {
+        font-size: 14px;
+        color: #555;
+        margin-top: 5px;
+      }
+      .code {
+        background-color: #f4f4f4;
+        padding: 5px;
+        border-radius: 5px;
+        display: inline-block;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>API Endpoints</h1>
+    <p>Below are the available API endpoints and functionalities:</p>
+
+    <ul>
+      <li>
+        <a href="/api/pc_assembly/" target="_blank">GET /api/pc_assembly/</a>
+        <div class="endpoint-description">
+          Access the PC Assembly API to retrieve data.
+        </div>
+      </li>
+      <li>
+        <a href="/api/save-customizations/" target="_blank"
+          >POST /api/save-customizations/</a
+        >
+        <div class="endpoint-description">
+          Save customizations for a PC build.
+        </div>
+      </li>
+      <li>
+        <a href="/api/delete-customization/1" target="_blank"
+          >DELETE /api/delete-customization/&lt;saved_id&gt;</a
+        >
+        <div class="endpoint-description">
+          Delete a saved customization by ID. (Example ID: 1)
+        </div>
+      </li>
+    </ul>
+
+    <h2>Website Pages</h2>
+    <ul>
+      <li>
+        <a href="/" target="_blank">Home</a>
+        <div class="endpoint-description">Main page of the website.</div>
+      </li>
+      <li>
+        <a href="/gearGallery/" target="_blank">Gear Gallery</a>
+        <div class="endpoint-description">View the Gear Gallery page.</div>
+      </li>
+      <li>
+        <a href="/login/" target="_blank">Login</a>
+        <div class="endpoint-description">Access the login page.</div>
+      </li>
+      <li>
+        <a href="/signup/" target="_blank">Signup</a>
+        <div class="endpoint-description">
+          Access the signup page to create an account.
+        </div>
+      </li>
+      <li>
+        <a href="/logout/" target="_blank">Logout</a>
+        <div class="endpoint-description">
+          Logout from your current session.
+        </div>
+      </li>
+      <li>
+        <a href="/pcAssembly/" target="_blank">PC Assembly</a>
+        <div class="endpoint-description">Explore the PC Assembly page.</div>
+      </li>
+      <li>
+        <a href="/parts/" target="_blank">Parts</a>
+        <div class="endpoint-description">View all available parts.</div>
+      </li>
+      <li>
+        <a href="/part/gpu/1" target="_blank">Part Details</a>
+        <div class="endpoint-description">
+          View details of a specific part. (Example: GPU with ID 1)
+        </div>
+      </li>
+      <li>
+        <a href="/saved-customizations/" target="_blank"
+          >Saved Customizations</a
+        >
+        <div class="endpoint-description">
+          View your saved PC customizations.
+        </div>
+      </li>
+    </ul>
+
+    <h2>Django Admin Login</h2>
+    <p>To access the Django admin page, follow these steps:</p>
+    <ol>
+      <li>
+        Run the server using
+        <span class="code">python manage.py runserver</span>.
+      </li>
+      <li>Use the following credentials for admin log in:</li>
+      <ul>
+        <li><strong>Username:</strong> zpl</li>
+        <li><strong>Password:</strong> zplpc123</li>
+        <li><strong>Email:</strong> zpl@pc.com</li>
+      </ul>
+    </ol>
+
+    <h2>Unit Test and Load Data</h2>
+    <p>To run unit tests or load data, use the following commands:</p>
+    <ul>
+      <li><strong>Run Unit Tests:</strong></li>
+      <p class="code">python manage.py test</p>
+      <li><strong>Load Data:</strong></li>
+      <p class="code">python manage.py load_data</p>
+      <div class="details">
+        The <code>load_data</code> command loads the JSON files under the
+        <code>/management/commands</code> directory into the database.
+      </div>
+    </ul>
+
+    <h2>Development Environment</h2>
+    <ul>
+      <li><strong>Operating System:</strong> macOS 15.2</li>
+      <li><strong>Python Version:</strong> 3.12.7</li>
+      <li><strong>Django Version:</strong> 5.1.4</li>
+      <li>
+        <strong>Installed Packages:</strong>
+        <ul>
+          <li>asgiref==3.8.1</li>
+          <li>Django==5.1.4</li>
+          <li>djangorestframework==3.15.2</li>
+          <li>pytz==2024.2</li>
+          <li>setuptools==75.1.0</li>
+          <li>sqlparse==0.5.2</li>
+          <li>wheel==0.44.0</li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+</html>
